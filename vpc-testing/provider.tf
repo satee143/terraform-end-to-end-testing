@@ -9,7 +9,7 @@ terraform {
     bucket       = "terraform-module-testing-aws"
     region       = "us-east-1"
     key          = "vpc-statefile"
-    use_lockfile = true
+    #use_lockfile = "true"
   }
 }
 provider "aws" {
