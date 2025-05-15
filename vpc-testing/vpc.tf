@@ -3,6 +3,8 @@ module "vpc" {
   vpc_cidr_block=var.vpc_cidr_block
   enable_dns_hostnames=var.enable_dns_hostnames
   common_tags=var.common_tags
-  vpc_tags=var.vpc_tags
+  project_name=var.project_name
+  environment=var.environment
+
 
 }
