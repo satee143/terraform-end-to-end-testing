@@ -37,11 +37,11 @@ resource "aws_ssm_parameter" "private_route-table-id" {
 resource "aws_ssm_parameter" "elastic_ip_id" {
   name  = "/${var.project_name}/${var.environment}/eip_id"
   type  = "String"
-    value = module.vpc.eip
+    value = module.vpc.eip_id
 }
 
 resource "aws_ssm_parameter" "elastic_ip_public_ip" {
   name  = "/${var.project_name}/${var.environment}/elastic_ip_public_ip"
   type  = "String"
-    value = module.vpc.eip
+    value = module.vpc.eip_ip
 }
