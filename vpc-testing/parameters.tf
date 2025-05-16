@@ -45,3 +45,8 @@ resource "aws_ssm_parameter" "elastic_ip_public_ip" {
   type  = "String"
     value = module.vpc.eip_ip
 }
+resource "aws_ssm_parameter" "nat_gateway_id" {
+  name  = "/${var.project_name}/${var.environment}/nat_gateway_id"
+  type  = "String"
+    value = module.vpc.nat_gateway
+}
