@@ -6,9 +6,9 @@ terraform {
     }
   }
   backend "s3" {
-    bucket       = "terraform-module-testing-aws"
-    region       = "us-east-1"
-    key          = "vpc-statefile-new"
+    bucket         = "terraform-module-testing-aws"
+    region         = "us-east-1"
+    key            = "vpc-statefile-new"
     dynamodb_table = "myredbucket222"
     #use_lockfile = "true"
   }
