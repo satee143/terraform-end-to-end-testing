@@ -21,3 +21,15 @@ resource "aws_ssm_parameter" "database_subnet_ids" {
   type  = "StringList"
     value = join(",", module.vpc.database_subnet_ids)
 }
+
+resource "aws_ssm_parameter" "public_route-table-id" {
+  name  = "/${var.project_name}/${var.environment}/public-route-table_id"
+  type  = "String"
+    value = module.vpc.public-route-table_id.id
+}
+
+resource "aws_ssm_parameter" "rivate_route-table-id" {
+  name  = "/${var.project_name}/${var.environment}/private-route-table_id"
+  type  = "String"
+    value = module.vpc.private-route-table_id.id
+}
