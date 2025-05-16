@@ -34,6 +34,12 @@ resource "aws_ssm_parameter" "private_route-table-id" {
     value = module.vpc.private-route-table_id
 }
 
+resource "aws_ssm_parameter" "database_route-table-id" {
+  name  = "/${var.project_name}/${var.environment}/database-route-table_id"
+  type  = "String"
+    value = module.vpc.database-route-table_id
+}
+
 resource "aws_ssm_parameter" "elastic_ip_id" {
   name  = "/${var.project_name}/${var.environment}/eip_id"
   type  = "String"
