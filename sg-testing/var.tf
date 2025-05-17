@@ -1,9 +1,9 @@
 variable "project_name" {
-  type = string
+  type    = string
   default = "dashboard"
 }
 variable "environment" {
-  type = string
+  type    = string
   default = "dev"
 }
 variable "common_tags" {
@@ -13,4 +13,3 @@ variable "common_tags" {
     terraform      = true
   }
 }
-variable "sg_name" {}

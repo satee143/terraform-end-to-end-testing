@@ -3,7 +3,7 @@ module "sg-sql" {
   project_name = var.project_name
   environment  = var.environment
   common_tags  = var.common_tags
-  vpc_id       = data.vpc_id
+  vpc_id       = data.aws_ssm_parameter.vpc_id
   description  = "security group for my sql"
   sg_name      = "mysql"
 }
@@ -13,7 +13,7 @@ module "sg-bastion" {
   project_name = var.project_name
   environment  = var.environment
   common_tags  = var.common_tags
-  vpc_id       = data.vpc_id
+  vpc_id       = data.aws_ssm_parameter.vpc_id
   description  = "security group for my bastion"
   sg_name      = "bastion"
 }
@@ -23,7 +23,7 @@ module "sg-backend-alb" {
   project_name = var.project_name
   environment  = var.environment
   common_tags  = var.common_tags
-  vpc_id       = data.vpc_id
+  vpc_id       = data.aws_ssm_parameter.vpc_id
   description  = "security group for backend alb"
   sg_name      = "backend-alb"
 }
@@ -33,7 +33,7 @@ module "sg-frontend-alb" {
   project_name = var.project_name
   environment  = var.environment
   common_tags  = var.common_tags
-  vpc_id       = data.vpc_id
+  vpc_id       = data.aws_ssm_parameter.vpc_id
   description  = "security group for frontend alb"
   sg_name      = "frontend-alb"
 }
@@ -43,7 +43,7 @@ module "sg-frontend" {
   project_name = var.project_name
   environment  = var.environment
   common_tags  = var.common_tags
-  vpc_id       = data.vpc_id
+  vpc_id       = data.aws_ssm_parameter.vpc_id
   description  = "security group for frontend"
   sg_name      = "frontend"
 }
