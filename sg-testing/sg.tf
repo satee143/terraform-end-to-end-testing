@@ -120,3 +120,12 @@ resource "aws_security_group_rule" "backend-sql-ingress" {
   to_port                  = 3306
   source_security_group_id = module.sg-backend.sg_id
 }
+
+resource "aws_security_group_rule" "bastion-to-sql" {
+  type                     = "ingress"
+  from_port                = 3306
+  protocol                 = "tcp"
+  security_group_id        = module.sg-sql.sg_id
+  to_port                  = 3306
+  source_security_group_id = module.sg-bastion.sg_id
+}

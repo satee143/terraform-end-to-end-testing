@@ -56,3 +56,9 @@ resource "aws_ssm_parameter" "nat_gateway_id" {
   type  = "String"
   value = module.vpc.nat_gateway
 }
+
+resource "aws_ssm_parameter" "database_subnet_group_name" {
+  name  = "/${var.project_name}/${var.environment}/database_subnet_group_name"
+  type  = "String"
+  value = aws_db_subnet_group.expense.name
+}
