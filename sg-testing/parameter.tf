@@ -27,3 +27,9 @@ resource "aws_ssm_parameter" "sg-frontend" {
   type  = "String"
   value = module.sg-frontend.sg_id
 }
+
+resource "aws_ssm_parameter" "sg-backend" {
+  name  = "/${var.project_name}/${var.environment}/sg_backend"
+  type  = "String"
+  value = module.sg-backend.sg_id
+}
