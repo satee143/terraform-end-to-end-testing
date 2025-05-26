@@ -32,3 +32,11 @@ variable "port_number" {
   type    = number
   default = 80
 }
+
+variable "zone_id" {
+    default = "Z01636753AQD82KILUFMZ"
+}
+
+variable "domain_name" {
+    default = "devopsguide.store"
+}

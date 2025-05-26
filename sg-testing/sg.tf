@@ -18,6 +18,16 @@ module "sg-bastion" {
   sg_name      = "bastion"
 }
 
+module "sg-openvpn" {
+  source       = "git::https://github.com/satee143/terraform-security-group-module.git?ref=main"
+  project_name = var.project_name
+  environment  = var.environment
+  common_tags  = var.common_tags
+  vpc_id       = data.aws_ssm_parameter.vpc_id.value
+  description  = "security group for my openvpn"
+  sg_name      = "openvpn"
+}
+
 module "sg-backend-alb" {
   source       = "git::https://github.com/satee143/terraform-security-group-module.git?ref=main"
   project_name = var.project_name
@@ -128,4 +138,58 @@ resource "aws_security_group_rule" "bastion-to-sql" {
   security_group_id        = module.sg-sql.sg_id
   to_port                  = 3306
   source_security_group_id = module.sg-bastion.sg_id
+}
+
+resource "aws_security_group_rule" "openvpn-ingress-ssh" {
+  type              = "ingress"
+  from_port         = 22
+  protocol          = "tcp"
+  security_group_id = module.sg-openvpn.sg_id
+  to_port           = 22
+  cidr_blocks = ["0.0.0.0/0"]
+}
+
+resource "aws_security_group_rule" "openvpn-ingress-https" {
+  type              = "ingress"
+  from_port         = 443
+  protocol          = "tcp"
+  security_group_id = module.sg-openvpn.sg_id
+  to_port           = 443
+  cidr_blocks = ["0.0.0.0/0"]
+}
+
+resource "aws_security_group_rule" "openvpn-ingress-943" {
+  type              = "ingress"
+  from_port         = 943
+  protocol          = "tcp"
+  security_group_id = module.sg-openvpn.sg_id
+  to_port           = 943
+  cidr_blocks = ["0.0.0.0/0"]
+}
+
+resource "aws_security_group_rule" "openvpn-ingress-1194" {
+  type              = "ingress"
+  from_port         = 1194
+  protocol          = "tcp"
+  security_group_id = module.sg-openvpn.sg_id
+  to_port           = 1194
+  cidr_blocks = ["0.0.0.0/0"]
+}
+
+resource "aws_security_group_rule" "openvpn-to-sql" {
+  type                     = "ingress"
+  from_port                = 3306
+  protocol                 = "tcp"
+  security_group_id        = module.sg-sql.sg_id
+  to_port                  = 3306
+  source_security_group_id = module.sg-openvpn.sg_id
+}
+
+resource "aws_security_group_rule" "openvpn-backend" {
+  type              = "ingress"
+  from_port         = 22
+  protocol          = "tcp"
+  source_security_group_id = module.sg-openvpn.sg_id
+  to_port           = 22
+  security_group_id = module.sg-backend.sg_id
 }

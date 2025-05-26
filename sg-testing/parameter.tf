@@ -10,6 +10,12 @@ resource "aws_ssm_parameter" "sg-bastion" {
   value = module.sg-bastion.sg_id
 }
 
+resource "aws_ssm_parameter" "sg-openvpn" {
+  name  = "/${var.project_name}/${var.environment}/sg_openvpn"
+  type  = "String"
+  value = module.sg-openvpn.sg_id
+}
+
 resource "aws_ssm_parameter" "sg-backend-alb" {
   name  = "/${var.project_name}/${var.environment}/sg_backend_alb"
   type  = "String"
