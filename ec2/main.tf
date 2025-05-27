@@ -6,7 +6,7 @@ resource "aws_instance" "bastion" {
   subnet_id = local.public_subnet_id
   #user_data = file("userdata.sh")
   tags = merge(var.common_tags, {
-    Name = local.resource_name
+    Name = "${local.resource_name}-bastion"
   })
 }
 

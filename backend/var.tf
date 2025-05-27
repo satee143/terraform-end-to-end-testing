@@ -30,7 +30,7 @@ variable "protocol" {
 
 variable "port_number" {
   type    = number
-  default = 80
+  default = 8080
 }
 
 variable "zone_id" {

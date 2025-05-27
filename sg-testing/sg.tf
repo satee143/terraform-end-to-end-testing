@@ -193,3 +193,30 @@ resource "aws_security_group_rule" "openvpn-backend" {
   to_port           = 22
   security_group_id = module.sg-backend.sg_id
 }
+
+resource "aws_security_group_rule" "openvpn-to-backend-alb-ingress" {
+  type                     = "ingress"
+  from_port                = 80
+  protocol                 = "tcp"
+  security_group_id        = module.sg-backend-alb.sg_id
+  to_port                  = 80
+  source_security_group_id = module.sg-openvpn.sg_id
+}
+
+resource "aws_security_group_rule" "backend_vpn_http" {
+  type              = "ingress"
+  from_port         = 8080
+  to_port           = 8080
+  protocol          = "tcp"
+  source_security_group_id = module.sg-openvpn.sg_id
+  security_group_id = module.sg-backend.sg_id
+}
+
+resource "aws_security_group_rule" "backend_app_alb" {
+  type              = "ingress"
+  from_port         = 8080
+  to_port           = 8080
+  protocol          = "tcp"
+  source_security_group_id = module.sg-backend-alb.sg_id
+  security_group_id = module.sg-backend.sg_id
+}
