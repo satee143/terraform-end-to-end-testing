@@ -34,9 +34,9 @@ variable "port_number" {
 }
 
 variable "zone_id" {
-    default = "Z01636753AQD82KILUFMZ"
+  default = "Z01636753AQD82KILUFMZ"
 }
 
 variable "domain_name" {
-    default = "devopsguide.store"
+  default = "devopsguide.store"
 }

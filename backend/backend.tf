@@ -43,12 +43,12 @@ resource "null_resource" "backend" {
 resource "aws_ec2_instance_state" "backend" {
   instance_id = aws_instance.backend.id
 
-  state       = "stopped"
+  state = "stopped"
   depends_on = [null_resource.backend]
 }
 
 resource "aws_ami_from_instance" "backend" {
-  name = local.resource_name
+  name               = local.resource_name
   source_instance_id = aws_instance.backend.id
 
   depends_on = [aws_ec2_instance_state.backend]

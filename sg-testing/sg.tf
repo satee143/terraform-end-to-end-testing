@@ -186,12 +186,12 @@ resource "aws_security_group_rule" "openvpn-to-sql" {
 }
 
 resource "aws_security_group_rule" "openvpn-backend" {
-  type              = "ingress"
-  from_port         = 22
-  protocol          = "tcp"
+  type                     = "ingress"
+  from_port                = 22
+  protocol                 = "tcp"
   source_security_group_id = module.sg-openvpn.sg_id
-  to_port           = 22
-  security_group_id = module.sg-backend.sg_id
+  to_port                  = 22
+  security_group_id        = module.sg-backend.sg_id
 }
 
 resource "aws_security_group_rule" "openvpn-to-backend-alb-ingress" {
@@ -204,19 +204,38 @@ resource "aws_security_group_rule" "openvpn-to-backend-alb-ingress" {
 }
 
 resource "aws_security_group_rule" "backend_vpn_http" {
-  type              = "ingress"
-  from_port         = 8080
-  to_port           = 8080
-  protocol          = "tcp"
+  type                     = "ingress"
+  from_port                = 8080
+  to_port                  = 8080
+  protocol                 = "tcp"
   source_security_group_id = module.sg-openvpn.sg_id
-  security_group_id = module.sg-backend.sg_id
+  security_group_id        = module.sg-backend.sg_id
 }
 
 resource "aws_security_group_rule" "backend_app_alb" {
-  type              = "ingress"
-  from_port         = 8080
-  to_port           = 8080
-  protocol          = "tcp"
+  type                     = "ingress"
+  from_port                = 8080
+  to_port                  = 8080
+  protocol                 = "tcp"
   source_security_group_id = module.sg-backend-alb.sg_id
-  security_group_id = module.sg-backend.sg_id
+  security_group_id        = module.sg-backend.sg_id
+}
+
+resource "aws_security_group_rule" "openvpn-frontend" {
+  type                     = "ingress"
+  from_port                = 22
+  protocol                 = "tcp"
+  source_security_group_id = module.sg-openvpn.sg_id
+  to_port                  = 22
+  security_group_id        = module.sg-frontend.sg_id
+}
+
+
+resource "aws_security_group_rule" "frontend_public" {
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  cidr_blocks = ["0.0.0.0/0"]
+  security_group_id = module.sg-frontend.sg_id
 }

@@ -48,7 +48,7 @@ resource "aws_ec2_instance_state" "frontend" {
 }
 
 resource "aws_ami_from_instance" "frontend" {
-  name               = local.resource_name
+  name               = "${local.resource_name}-Frontend-Alb"
   source_instance_id = aws_instance.frontend.id
 
   depends_on = [aws_ec2_instance_state.frontend]
@@ -69,7 +69,7 @@ resource "null_resource" "frontend_delete" {
 
 
 resource "aws_launch_template" "dashboard-frontend" {
-  name                                 = local.resource_name
+  name                                 = "${local.resource_name}-Frontend-Alb"
   description                          = var.description
   image_id                             = aws_ami_from_instance.frontend.id
   instance_type                        = var.instance_type
@@ -86,7 +86,7 @@ resource "aws_launch_template" "dashboard-frontend" {
 }
 
 resource "aws_lb_target_group" "dashboard-frontend" {
-  name                 = local.resource_name
+  name                 = "${local.resource_name}-frontend"
   port                 = var.port_number
   protocol             = var.protocol
   vpc_id               = local.vpc_id
@@ -106,7 +106,7 @@ resource "aws_lb_target_group" "dashboard-frontend" {
 }
 
 resource "aws_autoscaling_group" "dashboard-frontend" {
-  name = local.resource_name
+  name = "${local.resource_name}-frontend"
   launch_template {
     id      = aws_launch_template.dashboard-frontend.id
     version = aws_launch_template.dashboard-frontend.latest_version
@@ -129,7 +129,7 @@ resource "aws_autoscaling_group" "dashboard-frontend" {
   }
   tag {
     key                 = "Name"
-    value               = local.resource_name
+    value               = "${local.resource_name}-Frontend-Alb"
     propagate_at_launch = true
   }
 
@@ -200,7 +200,7 @@ resource "aws_lb_listener_rule" "backend" {
 
   condition {
     host_header {
-      values = ["expense-${var.environment}.${var.domain_name}"]
+      values = ["dashboard-${var.environment}.${var.domain_name}"]
     }
   }
 }

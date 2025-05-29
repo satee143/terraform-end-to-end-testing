@@ -15,8 +15,8 @@ resource "aws_instance" "openvpn" {
   # SSH login openvpnas
   # client login openvpn Openvpn@123
   #ami = "ami-06e5a963b2dadea6f"
-  key_name = aws_key_pair.openvpnas.key_name
-  ami = data.aws_ami.openvpn.id
+  key_name  = aws_key_pair.openvpnas.key_name
+  ami       = data.aws_ami.openvpn.id
   instance_type = "t3.micro"
   #key_name      = "aws.pem"
   vpc_security_group_ids = [data.aws_ssm_parameter.sg_openvpn.value]
@@ -28,10 +28,10 @@ resource "aws_instance" "openvpn" {
 }
 
 resource "aws_key_pair" "openvpnas" {
-  key_name   = "aws"
+  key_name = "aws"
   public_key = file("/Users/satheeshdoosa/PycharmProjects/terraform-end-to-end-testing/ec2/aws.pub")
 }
 
 output "vpn_ip" {
-  value       = aws_instance.openvpn.public_ip
+  value = aws_instance.openvpn.public_ip
 }

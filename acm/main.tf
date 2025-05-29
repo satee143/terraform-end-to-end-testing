@@ -5,7 +5,7 @@ resource "aws_acm_certificate" "dashboard" {
   tags = merge(
     var.common_tags,
     {
-        Name = "${var.project_name}-${var.environment}"
+      Name = "${var.project_name}-${var.environment}"
     }
   )
 }
@@ -21,7 +21,7 @@ resource "aws_route53_record" "dashboard" {
 
   allow_overwrite = true
   name            = each.value.name
-  records         = [each.value.record]
+  records = [each.value.record]
   ttl             = 60
   type            = each.value.type
   zone_id         = var.zone_id
